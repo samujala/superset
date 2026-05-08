@@ -281,7 +281,7 @@ def fetch_url(data: str, headers: dict[str, str]) -> dict[str, str]:
 @celery_app.task(name="cache-warmup")
 def cache_warmup(
     strategy_name: str, *args: Any, **kwargs: Any
-) -> Union[dict[str, list[str]], str]:
+) -> dict[str, list[str]] | str:
     """
     Warm up cache.
 

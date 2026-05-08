@@ -361,10 +361,7 @@ class DatabricksDynamicBaseEngineSpec(BasicParametersMixin, DatabricksBaseEngine
     @classmethod
     def validate_parameters(  # type: ignore
         cls,
-        properties: Union[
-            DatabricksNativePropertiesType,
-            DatabricksPythonConnectorPropertiesType,
-        ],
+        properties: DatabricksNativePropertiesType | DatabricksPythonConnectorPropertiesType,
     ) -> list[SupersetError]:
         errors: list[SupersetError] = []
         if extra := json.loads(properties.get("extra")):  # type: ignore

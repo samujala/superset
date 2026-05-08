@@ -54,7 +54,7 @@ from typing_extensions import TypeAlias
 logger = logging.getLogger(__name__)
 
 # Type alias for MCP tool responses (Pydantic models, dicts, lists, strings, bytes)
-ToolResponse: TypeAlias = Union[BaseModel, Dict[str, Any], List[Any], str, bytes]
+ToolResponse: TypeAlias = BaseModel | Dict[str, Any] | List[Any] | str | bytes
 
 # Fallback character-to-token ratio used when tiktoken is unavailable.
 # 3.0 is conservative for JSON content (the previous 3.5 under-counted

@@ -18,13 +18,13 @@ from enum import Enum
 from typing import Any, Dict, List, Literal, Optional, TypedDict, Union
 
 ThemeAlgorithmCombination = List[
-    Union[Literal["default"], Literal["dark"], Literal["compact"]]
+    Literal["default"] | Literal["dark"] | Literal["compact"]
 ]
 
 
-ThemeAlgorithmOption = Union[
-    Literal["default"], Literal["dark"], Literal["compact"], ThemeAlgorithmCombination
-]
+ThemeAlgorithmOption = (
+    Literal["default"] | Literal["dark"] | Literal["compact"] | ThemeAlgorithmCombination
+)
 
 
 class Theme(TypedDict, total=False):

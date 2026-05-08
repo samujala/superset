@@ -31,7 +31,7 @@ class AdvancedDataTypeRequest(TypedDict):
 
     advanced_data_type: str
     values: list[
-        Union[FilterValues, None]
+        FilterValues | None
     ]  # unparsed value (usually text when passed from text box)
 
 

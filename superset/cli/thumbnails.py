@@ -75,7 +75,7 @@ def compute_thumbnails(
 
     def compute_generic_thumbnail(
         friendly_type: str,
-        model_cls: Union[type[Dashboard], type[Slice]],
+        model_cls: type[Dashboard] | type[Slice],
         model_ids: list[int],
         compute_func: CallableTask,
     ) -> None:

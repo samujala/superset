@@ -28,7 +28,7 @@ def serialize(params: dict[str, Any]) -> str:
 
     T = TypeVar(
         "T",
-        bound=Union[dict[str, Any], list[Any], int, float, str, bool, None],
+        bound=dict[str, Any] | list[Any] | int | float | str | bool | None,
     )
 
     def sort(obj: T) -> T:
