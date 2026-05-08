@@ -35,7 +35,6 @@ from typing import (
     Optional,
     TYPE_CHECKING,
     TypedDict,
-    Union,
 )
 
 import dateutil.parser
@@ -601,11 +600,11 @@ class AuditMixinNullable(AuditMixin):
         return ""
 
     @renders("created_by")
-    def creator(self) -> Union[Markup, str]:
+    def creator(self) -> Markup | str:
         return _user(self.created_by)
 
     @property
-    def changed_by_(self) -> Union[Markup, str]:
+    def changed_by_(self) -> Markup | str:
         return _user(self.changed_by)
 
     @renders("changed_on")
@@ -1070,7 +1069,7 @@ class ExploreMixin:  # pylint: disable=too-many-public-methods
         row: pd.Series,
         dimension: str,
         columns_by_name: dict[str, "TableColumn"],
-    ) -> Union[str, int, float, bool, str]:
+    ) -> str | int | float | bool | str:
         """
         Convert a prequery result type to its equivalent Python type.
 
@@ -2038,7 +2037,7 @@ class ExploreMixin:  # pylint: disable=too-many-public-methods
 
     def get_from_clause(
         self, template_processor: Optional[BaseTemplateProcessor] = None
-    ) -> tuple[Union[TableClause, Alias], Optional[str]]:
+    ) -> tuple[TableClause | Alias, Optional[str]]:
         """
         Return where to select the columns and metrics from. Either a physical table
         or a virtual table with it's own subquery. If the FROM is referencing a
@@ -2606,7 +2605,7 @@ class ExploreMixin:  # pylint: disable=too-many-public-methods
         time_grain: Optional[str],
         label: Optional[str] = None,
         template_processor: Optional[BaseTemplateProcessor] = None,
-    ) -> Union[TimestampExpression, Label]:
+    ) -> TimestampExpression | Label:
         """
         Return a SQLAlchemy Core element representation of self to be used in a query.
 
@@ -2702,8 +2701,8 @@ class ExploreMixin:  # pylint: disable=too-many-public-methods
         }
         columns = columns or []
         groupby = groupby or []
-        rejected_adhoc_filters_columns: list[Union[str, ColumnTyping]] = []
-        applied_adhoc_filters_columns: list[Union[str, ColumnTyping]] = []
+        rejected_adhoc_filters_columns: list[str | ColumnTyping] = []
+        applied_adhoc_filters_columns: list[str | ColumnTyping] = []
         db_engine_spec = self.db_engine_spec
         series_column_labels = [
             db_engine_spec.make_label_compatible(column)
@@ -2788,7 +2787,7 @@ class ExploreMixin:  # pylint: disable=too-many-public-methods
         # Since orderby may use adhoc metrics, too; we need to process them first
         orderby_exprs: list[ColumnElement] = []
         for orig_col, ascending in orderby:  # noqa: B007
-            col: Union[AdhocMetric, ColumnElement] = orig_col
+            col: AdhocMetric | ColumnElement = orig_col
             if isinstance(col, dict):
                 col = cast(AdhocMetric, col)
                 if col.get("sqlExpression"):
@@ -2845,7 +2844,7 @@ class ExploreMixin:  # pylint: disable=too-many-public-methods
                     _("Unknown column used in orderby: %(col)s", col=orig_col)
                 )
 
-        select_exprs: list[Union[Column, Label]] = []
+        select_exprs: list[Column | Label] = []
         groupby_all_columns = {}
         groupby_series_columns = {}
 
