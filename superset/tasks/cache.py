@@ -17,7 +17,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Any, Optional, TypedDict, Union
+from typing import Any, TypedDict
 from urllib import request
 from urllib.error import URLError
 
@@ -53,7 +53,7 @@ class CacheWarmupTask(TypedDict):
     username: str | None
 
 
-def get_task(chart: Slice, dashboard: Optional[Dashboard] = None) -> CacheWarmupTask:
+def get_task(chart: Slice, dashboard: Dashboard | None = None) -> CacheWarmupTask:
     """Return task for warming up a given chart/table cache."""
     executors = current_app.config["CACHE_WARMUP_EXECUTORS"]
     payload: CacheWarmupPayload = {"chart_id": chart.id}
@@ -186,7 +186,7 @@ class DashboardTagsStrategy(Strategy):  # pylint: disable=too-few-public-methods
 
     name = "dashboard_tags"
 
-    def __init__(self, tags: Optional[list[str]] = None) -> None:
+    def __init__(self, tags: list[str] | None = None) -> None:
         super().__init__()
         self.tags = tags or []
 
@@ -281,7 +281,7 @@ def fetch_url(data: str, headers: dict[str, str]) -> dict[str, str]:
 @celery_app.task(name="cache-warmup")
 def cache_warmup(
     strategy_name: str, *args: Any, **kwargs: Any
-) -> Union[dict[str, list[str]], str]:
+) -> dict[str, list[str]] | str:
     """
     Warm up cache.
 

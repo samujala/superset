@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 from dataclasses import dataclass
-from typing import Any, Callable, Optional, TypedDict, Union
+from typing import Any, Callable, TypedDict
 
 from sqlalchemy import Column
 from sqlalchemy.sql.expression import BinaryExpression
@@ -31,7 +31,7 @@ class AdvancedDataTypeRequest(TypedDict):
 
     advanced_data_type: str
     values: list[
-        Union[FilterValues, None]
+        FilterValues | None
     ]  # unparsed value (usually text when passed from text box)
 
 
@@ -40,7 +40,7 @@ class AdvancedDataTypeResponse(TypedDict, total=False):
     AdvancedDataType response
     """
 
-    error_message: Optional[str]
+    error_message: str | None
     values: list[Any]  # parsed value (can be any value)
     display_value: str  # The string representation of the parsed values
     valid_filter_operators: list[FilterStringOperators]

@@ -17,7 +17,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, Callable, TYPE_CHECKING, TypedDict, Union
+from typing import Any, Callable, TYPE_CHECKING, TypedDict
 
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
@@ -361,10 +361,8 @@ class DatabricksDynamicBaseEngineSpec(BasicParametersMixin, DatabricksBaseEngine
     @classmethod
     def validate_parameters(  # type: ignore
         cls,
-        properties: Union[
-            DatabricksNativePropertiesType,
-            DatabricksPythonConnectorPropertiesType,
-        ],
+        properties: DatabricksNativePropertiesType
+        | DatabricksPythonConnectorPropertiesType,
     ) -> list[SupersetError]:
         errors: list[SupersetError] = []
         if extra := json.loads(properties.get("extra")):  # type: ignore
