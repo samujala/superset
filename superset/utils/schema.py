@@ -14,7 +14,7 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-from typing import Any, Union
+from typing import Any
 
 from marshmallow import validate, ValidationError
 
@@ -40,7 +40,7 @@ class OneOfCaseInsensitive(validate.OneOf):
         return value
 
 
-def validate_json(value: Union[bytes, bytearray, str]) -> None:
+def validate_json(value: bytes | bytearray | str) -> None:
     """
     JSON Validator that can be passed to a Marshmallow `Field`'s validate argument.
 
