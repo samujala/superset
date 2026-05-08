@@ -48,7 +48,7 @@ annotation_long_descr = "A long description"
 annotation_json_metadata = "JSON metadata"
 
 
-def validate_json(value: Union[bytes, bytearray, str]) -> None:
+def validate_json(value: bytes | bytearray | str) -> None:
     try:
         json.validate_json(value)
     except json.JSONDecodeError as ex:

@@ -147,8 +147,8 @@ class Db2EngineSpec(BaseEngineSpec):
     def get_prequeries(
         cls,
         database: Database,
-        catalog: Union[str, None] = None,
-        schema: Union[str, None] = None,
+        catalog: str | None = None,
+        schema: str | None = None,
     ) -> list[str]:
         """
         Set the search path to the specified schema.

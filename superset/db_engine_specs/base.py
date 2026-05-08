@@ -104,7 +104,7 @@ if TYPE_CHECKING:
 
 ColumnTypeMapping = tuple[
     Pattern[str],
-    Union[TypeEngine, Callable[[Match[str]], TypeEngine]],
+    TypeEngine | Callable[[Match[str]], TypeEngine],
     GenericDataType,
 ]
 

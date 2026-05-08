@@ -98,7 +98,7 @@ def context_addons() -> dict[str, Any]:
 class Filter(TypedDict):
     op: str  # pylint: disable=C0103
     col: str
-    val: Union[None, Any, list[Any]]
+    val: None | Any | list[Any]
 
 
 @dataclass
@@ -416,7 +416,7 @@ class ExtraCache:
         filters: list[Filter] = []
 
         for flt in form_data.get("adhoc_filters", []):
-            val: Union[Any, list[Any]] = flt.get("comparator")
+            val: Any | list[Any] = flt.get("comparator")
             op: str = flt["operator"].upper() if flt.get("operator") else None  # type: ignore
             if (
                 flt.get("expressionType") == "SIMPLE"

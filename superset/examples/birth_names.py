@@ -47,7 +47,7 @@ logger = logging.getLogger(__name__)
 
 def gen_filter(
     subject: str, comparator: str, operator: str = "=="
-) -> dict[str, Union[bool, str]]:
+) -> dict[str, bool | str]:
     return {
         "clause": "WHERE",
         "comparator": comparator,

@@ -542,7 +542,7 @@ def check_datasource_perms(
 
 
 def _deserialize_results_payload(
-    payload: Union[bytes, str], query: Query, use_msgpack: Optional[bool] = False
+    payload: bytes | str, query: Query, use_msgpack: Optional[bool] = False
 ) -> dict[str, Any]:
     logger.debug("Deserializing from msgpack: %r", use_msgpack)
     if use_msgpack:

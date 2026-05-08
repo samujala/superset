@@ -34,7 +34,7 @@ class GuestTokenResourceType(StrEnum):
 
 class GuestTokenResource(TypedDict):
     type: GuestTokenResourceType
-    id: Union[str, int]
+    id: str | int
 
 
 GuestTokenResources = list[GuestTokenResource]
