@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 import logging
-from typing import Optional, Union
+from typing import Optional
 
 from superset.daos.base import BaseDAO
 from superset.extensions import db
@@ -48,7 +48,7 @@ class AnnotationDAO(BaseDAO[Annotation]):
 
 class AnnotationLayerDAO(BaseDAO[AnnotationLayer]):
     @staticmethod
-    def has_annotations(model_id: Union[int, list[int]]) -> bool:
+    def has_annotations(model_id: int | list[int]) -> bool:
         if isinstance(model_id, list):
             return (
                 db.session.query(AnnotationLayer)
