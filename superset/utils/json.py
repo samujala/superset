@@ -19,7 +19,7 @@ import decimal
 import logging
 import uuid
 from datetime import date, datetime, time, timedelta
-from typing import Any, Callable, Dict, Optional, Union
+from typing import Any, Callable, Dict, Optional
 
 import numpy as np
 import pandas as pd
@@ -40,7 +40,7 @@ class DashboardEncoder(simplejson.JSONEncoder):
         super().__init__(*args, **kwargs)
         self.sort_keys = True
 
-    def default(self, o: Any) -> Union[dict[Any, Any], str]:  # type: ignore
+    def default(self, o: Any) -> dict[Any, Any] | str:  # type: ignore
         if isinstance(o, uuid.UUID):
             return str(o)
         try:
@@ -168,7 +168,7 @@ def json_dumps_w_dates(payload: dict[Any, Any], sort_keys: bool = False) -> str:
     return dumps(payload, default=json_int_dttm_ser, sort_keys=sort_keys)
 
 
-def validate_json(obj: Union[bytes, bytearray, str]) -> None:
+def validate_json(obj: bytes | bytearray | str) -> None:
     """
     A JSON Validator that validates an object of bytes, bytes array or string
     to be in valid JSON format
@@ -190,9 +190,9 @@ def dumps(  # pylint: disable=too-many-arguments
     allow_nan: bool = False,
     ignore_nan: bool = True,
     sort_keys: bool = False,
-    indent: Union[str, int, None] = None,
-    separators: Union[tuple[str, str], None] = None,
-    cls: Union[type[simplejson.JSONEncoder], None] = None,
+    indent: str | int | None = None,
+    separators: tuple[str, str] | None = None,
+    cls: type[simplejson.JSONEncoder] | None = None,
     encoding: Optional[str] = "utf-8",
 ) -> str:
     """
@@ -229,10 +229,10 @@ def dumps(  # pylint: disable=too-many-arguments
 
 
 def loads(
-    obj: Union[bytes, bytearray, str],
-    encoding: Union[str, None] = None,
+    obj: bytes | bytearray | str,
+    encoding: str | None = None,
     allow_nan: bool = False,
-    object_hook: Union[Callable[[dict[Any, Any]], Any], None] = None,
+    object_hook: Callable[[dict[Any, Any]], Any] | None = None,
 ) -> Any:
     """
     deserializable instance to a Python object.
