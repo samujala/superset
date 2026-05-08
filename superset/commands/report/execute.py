@@ -17,7 +17,7 @@
 import logging
 from collections.abc import Sequence
 from datetime import datetime, timedelta
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import pandas as pd
@@ -105,7 +105,7 @@ class BaseReportState:
     def update_report_schedule_and_log(
         self,
         state: ReportState,
-        error_message: Optional[str] = None,
+        error_message: str | None = None,
     ) -> None:
         """
         Update the report schedule state et al. and reflect the change in the execution
@@ -175,7 +175,7 @@ class BaseReportState:
             logger.exception(msg)
             raise UpdateFailedError(msg) from ex
 
-    def create_log(self, error_message: Optional[str] = None) -> None:
+    def create_log(self, error_message: str | None = None) -> None:
         """
         Creates a Report execution log, uses the current computed last_value for Alerts
         """
@@ -212,7 +212,7 @@ class BaseReportState:
     def _get_url(
         self,
         user_friendly: bool = False,
-        result_format: Optional[ChartDataResultFormat] = None,
+        result_format: ChartDataResultFormat | None = None,
         **kwargs: Any,
     ) -> str:
         """
@@ -359,8 +359,8 @@ class BaseReportState:
 
     @staticmethod
     def _merge_native_filters_into_url_params(
-        existing: Optional[Sequence[Sequence[str]]],
-        native_filter_params: Optional[str],
+        existing: Sequence[Sequence[str]] | None,
+        native_filter_params: str | None,
     ) -> list[Sequence[str]]:
         """
         Merge the report's ``native_filters`` into a permalink's existing
@@ -377,8 +377,8 @@ class BaseReportState:
     def _get_tabs_urls(
         self,
         tab_anchors: list[str],
-        dashboard_state: Optional[DashboardPermalinkState] = None,
-        native_filter_params: Optional[str] = None,
+        dashboard_state: DashboardPermalinkState | None = None,
+        native_filter_params: str | None = None,
         user_friendly: bool = False,
     ) -> list[str]:
         """
@@ -431,7 +431,7 @@ class BaseReportState:
             height = self._report_schedule.custom_height or window_height
             window_size = (width, height)
 
-            screenshots: list[Union[ChartScreenshot, DashboardScreenshot]] = [
+            screenshots: list[ChartScreenshot | DashboardScreenshot] = [
                 ChartScreenshot(
                     url,
                     self._report_schedule.chart.digest,
@@ -1112,7 +1112,7 @@ class AsyncExecuteReportScheduleCommand(BaseCommand):
 
     def __init__(self, task_id: str, model_id: int, scheduled_dttm: datetime):
         self._model_id = model_id
-        self._model: Optional[ReportSchedule] = None
+        self._model: ReportSchedule | None = None
         self._scheduled_dttm = scheduled_dttm
         self._execution_id = UUID(task_id)
 
