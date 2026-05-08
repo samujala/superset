@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 import re
-from typing import Any, Optional, Union
+from typing import Any, Optional
 
 from croniter import croniter
 from flask import current_app
@@ -108,7 +108,7 @@ creation_method_description = (
 )
 
 
-def validate_crontab(value: Union[bytes, bytearray, str]) -> None:
+def validate_crontab(value: bytes | bytearray | str) -> None:
     if not croniter.is_valid(str(value)):
         raise ValidationError("Cron expression is not valid")
 

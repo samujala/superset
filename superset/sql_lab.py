@@ -22,7 +22,7 @@ import uuid
 from contextlib import closing
 from datetime import datetime
 from sys import getsizeof
-from typing import Any, cast, Optional, TYPE_CHECKING, TypeVar, Union
+from typing import Any, cast, Optional, TYPE_CHECKING, TypeVar
 
 import backoff
 import msgpack
@@ -325,7 +325,7 @@ def execute_query(  # pylint: disable=too-many-statements, too-many-locals  # no
 
 def _serialize_payload(
     payload: dict[Any, Any], use_msgpack: Optional[bool] = False
-) -> Union[bytes, str]:
+) -> bytes | str:
     logger.debug("Serializing to msgpack: %r", use_msgpack)
     if use_msgpack:
         return msgpack.dumps(payload, default=json.json_iso_dttm_ser, use_bin_type=True)
@@ -338,7 +338,7 @@ def _serialize_and_expand_data(
     db_engine_spec: BaseEngineSpec,
     use_msgpack: Optional[bool] = False,
     expand_data: bool = False,
-) -> tuple[Union[bytes, str], list[Any], list[Any], list[Any]]:
+) -> tuple[bytes | str, list[Any], list[Any], list[Any]]:
     selected_columns = result_set.columns
     all_columns: list[Any]
     expanded_columns: list[Any]

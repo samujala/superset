@@ -33,7 +33,6 @@ from typing import (
     Optional,
     TYPE_CHECKING,
     TypedDict,
-    Union,
 )
 from urllib.parse import urlencode, urljoin
 from uuid import UUID, uuid4
@@ -104,7 +103,7 @@ if TYPE_CHECKING:
 
 ColumnTypeMapping = tuple[
     Pattern[str],
-    Union[TypeEngine, Callable[[Match[str]], TypeEngine]],
+    TypeEngine | Callable[[Match[str]], TypeEngine],
     GenericDataType,
 ]
 

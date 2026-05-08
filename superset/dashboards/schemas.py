@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 import re
-from typing import Any, Mapping, Union
+from typing import Any, Mapping
 
 from marshmallow import fields, post_dump, post_load, pre_load, Schema
 from marshmallow.validate import Length, ValidationError
@@ -96,14 +96,14 @@ openapi_spec_methods_override = {
 }
 
 
-def validate_json(value: Union[bytes, bytearray, str]) -> None:
+def validate_json(value: bytes | bytearray | str) -> None:
     try:
         json.validate_json(value)
     except json.JSONDecodeError as ex:
         raise ValidationError("JSON not valid") from ex
 
 
-def validate_json_metadata(value: Union[bytes, bytearray, str]) -> None:
+def validate_json_metadata(value: bytes | bytearray | str) -> None:
     if not value:
         return
     try:
@@ -122,9 +122,9 @@ class SharedLabelsColorsField(fields.Field):
 
     def _deserialize(
         self,
-        value: Union[list[str], dict[str, str]],
-        attr: Union[str, None],
-        data: Union[Mapping[str, Any], None],
+        value: list[str] | dict[str, str],
+        attr: str | None,
+        data: Mapping[str, Any] | None,
         **kwargs: dict[str, Any],
     ) -> list[str]:
         if isinstance(value, list):

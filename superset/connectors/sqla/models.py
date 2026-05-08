@@ -23,7 +23,7 @@ from collections import defaultdict
 from collections.abc import Hashable
 from dataclasses import dataclass, field
 from datetime import timedelta
-from typing import Any, Callable, cast, Optional, Union
+from typing import Any, Callable, cast, Optional
 
 import pandas as pd
 import sqlalchemy as sa
@@ -780,7 +780,7 @@ class BaseDatasource(
         template_processor = template_processor or self.get_template_processor()
 
         all_filters: list[TextClause] = []
-        filter_groups: dict[Union[int, str], list[TextClause]] = defaultdict(list)
+        filter_groups: dict[int | str, list[TextClause]] = defaultdict(list)
         try:
             for filter_ in security_manager.get_rls_filters(self):
                 clause = self.text(

@@ -15,16 +15,19 @@
 # specific language governing permissions and limitations
 # under the License.
 from enum import Enum
-from typing import Any, Dict, List, Literal, Optional, TypedDict, Union
+from typing import Any, Dict, List, Literal, Optional, TypedDict
 
 ThemeAlgorithmCombination = List[
-    Union[Literal["default"], Literal["dark"], Literal["compact"]]
+    Literal["default"] | Literal["dark"] | Literal["compact"]
 ]
 
 
-ThemeAlgorithmOption = Union[
-    Literal["default"], Literal["dark"], Literal["compact"], ThemeAlgorithmCombination
-]
+ThemeAlgorithmOption = (
+    Literal["default"]
+    | Literal["dark"]
+    | Literal["compact"]
+    | ThemeAlgorithmCombination
+)
 
 
 class Theme(TypedDict, total=False):
