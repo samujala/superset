@@ -17,7 +17,7 @@
 import logging
 from collections.abc import Sequence
 from datetime import datetime, timedelta
-from typing import Any, Optional, Union
+from typing import Any, Optional
 from uuid import UUID
 
 import pandas as pd
@@ -431,7 +431,7 @@ class BaseReportState:
             height = self._report_schedule.custom_height or window_height
             window_size = (width, height)
 
-            screenshots: list[Union[ChartScreenshot, DashboardScreenshot]] = [
+            screenshots: list[ChartScreenshot | DashboardScreenshot] = [
                 ChartScreenshot(
                     url,
                     self._report_schedule.chart.digest,
