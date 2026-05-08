@@ -17,7 +17,7 @@
 import logging
 import re
 import urllib.request
-from typing import Any, Optional, Union
+from typing import Any
 from urllib.error import URLError
 
 import numpy as np
@@ -65,7 +65,7 @@ def escape_value(value: str) -> str:
 
 
 def df_to_escaped_csv(df: pd.DataFrame, **kwargs: Any) -> Any:
-    def escape_values(v: Any) -> Union[str, Any]:
+    def escape_values(v: Any) -> str | Any:
         return escape_value(v) if isinstance(v, str) else v
 
     # Escape csv headers
@@ -82,8 +82,8 @@ def df_to_escaped_csv(df: pd.DataFrame, **kwargs: Any) -> Any:
 
 
 def get_chart_csv_data(
-    chart_url: str, auth_cookies: Optional[dict[str, str]] = None
-) -> Optional[bytes]:
+    chart_url: str, auth_cookies: dict[str, str] | None = None
+) -> bytes | None:
     content = None
     if auth_cookies:
         opener = urllib.request.build_opener()
@@ -99,8 +99,8 @@ def get_chart_csv_data(
 
 
 def get_chart_dataframe(
-    chart_url: str, auth_cookies: Optional[dict[str, str]] = None
-) -> Optional[pd.DataFrame]:
+    chart_url: str, auth_cookies: dict[str, str] | None = None
+) -> pd.DataFrame | None:
     # Disable all the unnecessary-lambda violations in this function
     # pylint: disable=unnecessary-lambda
     content = get_chart_csv_data(chart_url, auth_cookies)
